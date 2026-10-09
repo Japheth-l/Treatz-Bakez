@@ -29,3 +29,8 @@ Menu items live in the `MENU` array at the top of `script.js`. Each item has a n
 ### Photos
 
 The current product photos are cropped from Instagram grid screenshots, so they're fairly low resolution. Swap in the original photos (same file names, ideally square and at least 800px wide) for a sharper result.
+
+## Deployment
+
+The site is served by GitHub Pages from the `gh-pages` branch at https://japheth-l.github.io/Treatz-Bakez/.
+Every push to `main` runs `.github/workflows/deploy.yml`, which copies the site files to `gh-pages`.
