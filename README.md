@@ -16,7 +16,7 @@ A static, single-page site — no build step. Open `index.html` in a browser, or
 | `styles.css` | Brand styling (orange, cream & brown) and responsive layout |
 | `script.js` | Menu data, filters, order basket, WhatsApp order message |
 | `assets/img` | Product photos and logo |
-| `assets/video` | Short clips used in the hero and "Boxes" section |
+| `assets/video` | Short clips used in the hero, "Boxes" and "Reels" sections (Instagram end cards trimmed off) |
 
 ### Ordering
 

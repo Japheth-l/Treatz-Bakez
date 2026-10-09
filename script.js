@@ -220,6 +220,44 @@
     $$(".reveal").forEach(function (el) { el.classList.add("is-in"); });
   }
 
+  /* ---------- Reels ---------- */
+  var reels = $$(".reel video");
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function setSound(video, on) {
+    video.muted = !on;
+    var btn = video.parentNode.querySelector(".reel-sound");
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+    btn.setAttribute("aria-label", on ? "Turn sound off" : "Turn sound on");
+    btn.textContent = on ? "🔊" : "🔇";
+  }
+
+  function play(video) {
+    var p = video.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+
+  // Autoplay (muted) only while a reel is on screen.
+  if ("IntersectionObserver" in window && !reduceMotion) {
+    var reelIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) play(en.target);
+        else { en.target.pause(); setSound(en.target, false); }
+      });
+    }, { threshold: 0.5 });
+    reels.forEach(function (v) { reelIo.observe(v); });
+  }
+
+  reels.forEach(function (v) {
+    v.parentNode.querySelector(".reel-sound").addEventListener("click", function () {
+      var on = v.muted;
+      reels.forEach(function (other) { if (other !== v) setSound(other, false); });
+      setSound(v, on);
+      if (on) play(v);
+    });
+    v.addEventListener("click", function () { if (v.paused) play(v); else v.pause(); });
+  });
+
   $("#year").textContent = new Date().getFullYear();
   render();
 })();
